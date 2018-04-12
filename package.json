@@ -1,0 +1,23 @@
+{
+  "name": "bart-now_server",
+  "version": "1.0.0",
+  "description": "Prototype for the server that will handle requests from the BART-Now app.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwactor/BART-Now_server.git"
+  },
+  "author": "Nick Wactor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nwactor/BART-Now_server/issues"
+  },
+  "homepage": "https://github.com/nwactor/BART-Now_server#readme",
+  "dependencies": {
+    "npm": "^5.8.0"
+  }
+}
