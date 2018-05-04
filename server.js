@@ -13,6 +13,8 @@ const bartAPI = require("./accessBartAPI");
 //=========================== socket handling ===========================
 //=======================================================================
 
+// io.set('origins', 'http://localhost:3000 http://192.168.65.2:3000 http://10.0.1.59:3000 http://127.0.0.1:3000');
+
 io.on('connection', client => {
 	console.log("Client connected: " + client);
 	client.station = null;
@@ -25,6 +27,7 @@ function onNewStationRequest(stationAbbr, client) {
 	client.leave(client.station);
 	client.station = stationAbbr;
 	client.join(client.station);
+	console.log("Sending info for " + stationAbbr + " to client " + client);
 	sendUpdatedTrains(client, stationAbbr);
 }
 
@@ -42,23 +45,14 @@ function sendUpdatedTrains(client, stationAbbr) {
 //========================= end socket handling =========================
 //=======================================================================
 
-function mainUpdateLoop() {
-	console.log("entering update loop");
-	bartAPI.getTrainETDs(sendUpdatesToClients);
-}
-
-function sendUpdatesToClients() {
-	console.log("Sent updates to clients!");
-}
-
-//check for new trains every 60 seconds
-// bartAPI.getTrainETDs(io);
-// var checkBartAPI = setInterval(bartAPI.getTrainETDs, 60000, io);
+// check for new trains every 30 seconds
+bartAPI.getTrainETDs(io);
+var checkBartAPI = setInterval(bartAPI.getTrainETDs, 30000, io);
 
 
-//start app listening
+//start server listening
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, function() {
+server.listen(PORT, function() {
 	console.log("App listening on PORT " + PORT);
 });
